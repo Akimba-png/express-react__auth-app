@@ -1,0 +1,11 @@
+{
+  "name": "practice__fullstack-auth-app",
+  "version": "1.0.0",
+  "description": "Приложение авторизации пользователей",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Akimba <akimba@gmail.com>",
+  "license": "ISC"
+}
