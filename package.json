@@ -1,15 +1,11 @@
 {
   "name": "practice__fullstack-auth-app",
   "version": "1.0.0",
-  "description": "Приложение авторизации пользователей",
+  "description": "fullstack-auth-app",
   "main": "index.js",
   "scripts": {
-    "install": "cd server & npm run install",
     "dev": "cd server & npm run dev"
   },
   "author": "Akimba <akimba@gmail.com>",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "5.1.1"
-  }
+  "license": "ISC"
 }

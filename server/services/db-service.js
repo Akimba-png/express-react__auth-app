@@ -1,21 +1,13 @@
-import { readFile,writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 
 class DbService {
   async read(path) {
-    try {
-      const data = await readFile(path, {encoding: 'utf-8'});
-      return JSON.parse(data);
-    } catch (error) {
-      throw new Error (`fs error reading, ${error,message}`);
-    }
+    const data = await readFile(path, {encoding: 'utf-8'});
+    return JSON.parse(data);
   }
 
   async write(path, data) {
-    try {
-      await writeFile(path, JSON.stringify(data));
-    } catch (error) {
-      throw new Error(`fs error writing ${error}`)
-    }
+    await writeFile(path, JSON.stringify(data));
   }
 }
 
