@@ -8,5 +8,8 @@
     "dev": "cd server & npm run dev"
   },
   "author": "Akimba <akimba@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "5.1.1"
+  }
 }

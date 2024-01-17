@@ -1,13 +1,12 @@
-import { authService } from '../services/auth-service.js';
+import { authService } from './../services/auth-service.js';
 
 class AuthController {
   async signup(req, res, next) {
     try {
       const { name, email, password } = req.body;
-      const user = await authService.createUser(name, email, password);
+      const user = await authService.create(name, email, password);
       res.status(201).send(user);
-    } catch(error) {
-      console.log(error.message);
+    } catch (error) {
       res.status(500).end(error.message);
     }
   }

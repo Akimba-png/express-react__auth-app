@@ -5,18 +5,17 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "install": "npm run i",
+    "install": "npm run install",
     "dev": "nodemon index.js",
     "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "bcrypt": "5.1.1",
-    "dotenv": "16.3.1",
-    "express": "4.18.2"
-  },
   "devDependencies": {
     "nodemon": "3.0.2"
+  },
+  "dependencies": {
+    "dotenv": "16.3.1",
+    "express": "4.18.2"
   }
 }

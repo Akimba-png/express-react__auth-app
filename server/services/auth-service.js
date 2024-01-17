@@ -1,28 +1,18 @@
-import { DbService } from './db-service.js';
-import { UserDto } from './../dtos/user-dto.js';
-import bcrypt from 'bcrypt';
-
+import { hash } from 'bcrypt';
+import { AuthModel } from './../models/auth-model.js';
 
 const SALT = 7;
 
 class AuthService {
-  constructor() {
-    this.db = new DbService('auth-db.json');
-  }
-
-  async createUser(name, email, password) {
-    const dbUser = await this.db.findOne(email);
-    if (dbUser) {
+  async create(name, email, password) {
+    let candidate = await AuthModel.findOne(email);
+    if (candidate) {
       throw new Error('user is already exist');
     }
-    const hashedPassword = await bcrypt.hash(password, SALT);
-    const candidate = {
-      name,
-      email,
-      password: hashedPassword,
-    };
-    const createdUser = await this.db.insertOne(candidate);
-    return new UserDto(createdUser);
+    const hashedPassword = await hash(password, SALT);
+    candidate = { name, email, password: hashedPassword };
+    const user = await AuthModel.create(candidate);
+    return user;
   }
 }
 
