@@ -15,6 +15,21 @@ class TokenModel {
     });
     await dbService.write(this.dbPath, tokens);
   }
+
+  static async updateOne(refreshToken, userId) {
+    const tokens = await dbService.read(this.dbPath);
+    const token = tokens.find((item) => {
+      return Object.values(item).includes(userId);
+    });
+    token.refreshToken = refreshToken;
+    const updatedTokens = tokens.map((item) => {
+      if (item.userId === userId) {
+        return token;
+      }
+      return item;
+    });
+    await dbService.write(this.dbPath, updatedTokens);
+  }
 }
 
 export { TokenModel };

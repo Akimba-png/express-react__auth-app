@@ -7,7 +7,17 @@ class AuthController {
       const data = await authService.signup(name, email, password);
       res.status(201).json(data.user);
     } catch (error) {
-      res.status(400).send(`error happend, ${error.message}`);
+      next(error);
+    }
+  }
+
+  async login(req, res, next) {
+    try {
+      const { email, password } = req.body;
+      const data = await authService.login(email, password);
+      res.status(200).json(data.user);
+    } catch (error) {
+      next(error);
     }
   }
 }
