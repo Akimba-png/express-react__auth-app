@@ -6,9 +6,17 @@ class TokenService {
     this.refreshKey = process.env.JWT_REFRESH_KEY;
   }
   generateToken(payload) {
-    const accessToken = jwt.sign(payload, this.accessKey, {expiresIn: '2m'});
-    const refreshToken = jwt.sign(payload, this.refreshKey, {expiresIn: '5m'});
+    const accessToken = jwt.sign(payload, this.accessKey, {expiresIn: '20m'});
+    const refreshToken = jwt.sign(payload, this.refreshKey, {expiresIn: '20m'});
     return { accessToken, refreshToken };
+  }
+  checkToken(token) {
+    try {
+      const user = jwt.verify(token, process.env.JWT_ACCESS_KEY);
+      return user;
+    } catch (error) {
+      return null;
+    }
   }
 }
 

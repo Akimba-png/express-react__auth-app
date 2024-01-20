@@ -9,6 +9,9 @@ class CustomError extends Error {
   static BadRequest(message, status = 400) {
     return new CustomError(message, status);
   }
+  static Unauthorized() {
+    return new CustomError('unauthorized', 401);
+  }
 }
 
 export { CustomError };

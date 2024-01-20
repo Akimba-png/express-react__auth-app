@@ -16,6 +16,13 @@ class TokenModel {
     await dbService.write(this.dbPath, tokens);
   }
 
+  static async findOne(id) {
+    const tokens = await dbService.read(this.dbPath);
+    return tokens.find((token) => {
+      return Object.values(token).includes(id);
+    });
+  }
+
   static async updateOne(refreshToken, userId) {
     const tokens = await dbService.read(this.dbPath);
     const token = tokens.find((item) => {
