@@ -18,6 +18,14 @@ class TokenService {
       return null;
     }
   }
+  checkRefreshToken(token) {
+    try {
+      const user = jwt.verify(token, process.env.JWT_REFRESH_KEY);
+      return user;
+    } catch (error) {
+      return null;
+    }
+  }
 }
 
 export const tokenService = new TokenService();

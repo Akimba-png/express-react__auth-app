@@ -28,6 +28,17 @@ class AuthController {
       next(error);
     }
   }
+
+  async logout(req, res, next) {
+    try {
+      const refreshToken = req.cookies.refreshToken;
+      await authService.logout(refreshToken);
+      res.clearCookie('refreshToken');
+      res.status(200).send('user successfully logged out');
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export const authController = new AuthController();

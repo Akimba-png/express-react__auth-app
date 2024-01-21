@@ -46,6 +46,17 @@ class AuthService {
       refreshToken: token.refreshToken,
     };
   }
+
+  async logout(refreshToken) {
+    if (!refreshToken) {
+      throw CustomError.BadRequest('unknown user');
+    }
+    const user = tokenService.checkRefreshToken(refreshToken);
+    if (!user) {
+      throw CustomError.BadRequest('unknown user');
+    }
+    await TokenModel.updateOne('', user.id);
+  }
 }
 
 export const authService = new AuthService();
