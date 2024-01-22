@@ -54,6 +54,15 @@ class AuthController {
       next(error);
     }
   }
+
+  async checkAuth(req, res, next) {
+    try {
+      const user = req.userData;
+      res.status(200).send(user);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export const authController = new AuthController();
