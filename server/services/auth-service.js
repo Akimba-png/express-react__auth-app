@@ -75,6 +75,11 @@ class AuthService {
       refreshToken: token.refreshToken,
     };
   }
+
+  async reset() {
+    await UserModel.deleteMany();
+    await TokenModel.deleteMany();
+  }
 }
 
 export const authService = new AuthService();

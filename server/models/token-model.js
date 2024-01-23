@@ -37,6 +37,10 @@ class TokenModel {
     });
     await dbService.write(this.dbPath, updatedTokens);
   }
+
+  static async deleteMany() {
+    await dbService.write(this.dbPath, []);
+  }
 }
 
 export { TokenModel };

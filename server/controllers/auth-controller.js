@@ -63,6 +63,15 @@ class AuthController {
       next(error);
     }
   }
+
+  async reset(_req, res, next) {
+    try {
+      await authService.reset();
+      res.status(204).send('db cleared');
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export const authController = new AuthController();

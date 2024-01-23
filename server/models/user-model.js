@@ -20,6 +20,10 @@ class UserModel {
     await dbService.write(this.dbPath, users);
     return user;
   }
+
+  static async deleteMany() {
+    await dbService.write(this.dbPath, []);
+  }
 }
 
 export { UserModel };
