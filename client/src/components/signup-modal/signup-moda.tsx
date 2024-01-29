@@ -5,19 +5,32 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import { RegData } from '../../models/user';
+import { validate } from '../../utils/auth';
 
-type SignupModaProps = {
+
+type SignupModalProps = {
   onSignupClose: () => void;
 }
 
 export function SignupModal({
   onSignupClose
-}: SignupModaProps) {
+}: SignupModalProps) {
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<RegData>();
+
   const handleModalClose = () => onSignupClose();
+  const onSubmit: SubmitHandler<RegData> = (data) => console.log(data);
 
   return (
     <Dialog
       open={true}
+      onSubmit={ handleSubmit(onSubmit) }
       onClose={ handleModalClose }
       PaperProps={{
         component: 'form',
@@ -31,33 +44,36 @@ export function SignupModal({
         </DialogContentText>
         <TextField
           autoFocus
-          required
           margin="dense"
           id="name"
-          name="name"
           label="User name"
           type="text"
           variant="standard"
+          { ...register('name', {required: true, minLength: 3})}
+          error={!!errors.name}
+          helperText={validate(errors, 'name')}
         />
         <TextField
-          required
           margin="dense"
           id="email"
-          name="email"
           label="Email"
-          type="email"
+          type="text"
           variant="standard"
           fullWidth
+          { ...register('email', {required: true, pattern: /\w+@\w/i})}
+          error={!!errors.email}
+          helperText={validate(errors, 'email')}
         />
         <TextField
-          required
           margin="dense"
           id="password"
-          name="password"
           label="Password"
-          type="email"
+          type="text"
           variant="standard"
           fullWidth
+          { ...register('password', {required: true, minLength: 3})}
+          error={!!errors.name}
+          helperText={validate(errors, 'password')}
         />
       </DialogContent>
       <DialogActions>

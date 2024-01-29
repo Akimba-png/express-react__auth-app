@@ -5,19 +5,31 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { Credentials } from '../../models/user';
+import { validate } from '../../utils/auth';
 
-type LoginModaProps = {
+type LoginModalProps = {
   onLoginClose: () => void;
 }
 
 export function LoginModal({
   onLoginClose
-}: LoginModaProps) {
+}: LoginModalProps) {
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Credentials>();
+
   const handleModalClose = () => onLoginClose();
+  const onSubmit: SubmitHandler<Credentials> = (data) => console.log(data);
 
   return (
     <Dialog
       open={true}
+      onSubmit={ handleSubmit(onSubmit) }
       onClose={ handleModalClose }
       PaperProps={{
         component: 'form',
@@ -31,23 +43,25 @@ export function LoginModal({
         </DialogContentText>
         <TextField
           autoFocus
-          required
           margin="dense"
           id="email"
-          name="email"
           label="Email"
-          type="email"
+          type="text"
           variant="standard"
+          {...register('email', {required: true, pattern: /\w@\w/i})}
+          error={!!errors.email}
+          helperText={validate(errors, 'email')}
         />
         <TextField
-          required
           margin="dense"
           id="password"
-          name="password"
           label="Password"
-          type="email"
+          type="password"
           variant="standard"
           fullWidth
+          {...register('password', {required: true, minLength: 3})}
+          error={!!errors.password}
+          helperText={validate(errors, 'password')}
         />
       </DialogContent>
       <DialogActions>
