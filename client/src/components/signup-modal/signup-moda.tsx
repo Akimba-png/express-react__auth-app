@@ -6,7 +6,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useForm, type SubmitHandler } from 'react-hook-form';
+import { signup } from '../../store/async-reducers/signup';
 import { RegData } from '../../models/user';
+import { useAppDispatch } from '../../hooks/store';
 import { validate } from '../../utils/auth';
 
 
@@ -18,14 +20,22 @@ export function SignupModal({
   onSignupClose
 }: SignupModalProps) {
 
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    reset,
+    formState: { errors },
   } = useForm<RegData>();
 
   const handleModalClose = () => onSignupClose();
-  const onSubmit: SubmitHandler<RegData> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<RegData> = async (data) => {
+    await dispatch(signup(data))
+      .unwrap()
+      .catch(() => console.log('unwrap error happend'));
+    reset();
+    handleModalClose();
+  };
 
   return (
     <Dialog
