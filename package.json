@@ -9,5 +9,8 @@
     "server": "cd server & npm run dev"
   },
   "author": "Akimba <akimba@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
 }

@@ -1,5 +1,4 @@
 import { authService } from '../services/auth-service.js';
-import { tokenService } from '../services/token-service.js';
 
 class AuthController {
   async signup(req, res, next) {
