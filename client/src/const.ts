@@ -9,6 +9,7 @@ export const BASE_URL = 'http://localhost:5000';
 
 export enum ApiRoute {
   signup = '/auth/signup',
+  Login = '/auth/login',
 }
 
 export enum LoadingStatus {

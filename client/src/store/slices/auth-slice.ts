@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { User } from '../../models/user';
 import { AuthStatus, LoadingStatus } from '../../const';
 import { createSignupReducer } from '../async-reducers/signup';
+import { createLoginReducer } from '../async-reducers/login';
 
 export type AuthState = {
   user: User;
@@ -28,5 +29,6 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     createSignupReducer(builder);
-  }
+    createLoginReducer(builder);
+  },
 });
