@@ -1,11 +1,11 @@
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { Box, Container } from '@mui/material';
 import { LoginModal } from './../login-modal/login-modal';
 import { SignupModal } from './../signup-modal/signup-moda';
+import { LoginBar } from '../login-bar/login-bar';
 
 export function Navigation(): JSX.Element {
   const [ isLoginOpen, setIsLoginOpen ] = useState<boolean>(false);
@@ -39,18 +39,10 @@ export function Navigation(): JSX.Element {
               display: 'flex',
               gap: 3
             }}>
-              <Button
-                onClick={ handleSignupOpen }
-                color="inherit"
-              >
-                  Signup
-              </Button>
-              <Button
-                onClick={ handleLoginOpen }
-                color="inherit"
-              >
-                  Login
-              </Button>
+              <LoginBar
+                onLoginClick={handleLoginOpen}
+                onSignupClick={handleSignupOpen}
+              />
             </Box>
         </Toolbar>
           </Container>
