@@ -6,6 +6,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useAppDispatch } from '../../hooks/store';
+import { login } from '../../store/async-reducers/login';
 import { Credentials } from '../../models/user';
 import { validate } from '../../utils/auth';
 
@@ -17,14 +19,24 @@ export function LoginModal({
   onLoginClose
 }: LoginModalProps) {
 
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Credentials>();
 
   const handleModalClose = () => onLoginClose();
-  const onSubmit: SubmitHandler<Credentials> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Credentials> = async (data) => {
+    try {
+      await dispatch(login(data)).unwrap();
+      reset();
+      handleModalClose();
+    } catch (error) {
+      console.log('unwrap error happened');
+    }
+  };
 
   return (
     <Dialog
@@ -66,7 +78,7 @@ export function LoginModal({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleModalClose}>Cancel</Button>
-        <Button type="submit">Subscribe</Button>
+        <Button type="submit">Login</Button>
       </DialogActions>
     </Dialog>
   );
