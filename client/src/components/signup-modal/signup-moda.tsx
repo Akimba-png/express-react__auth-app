@@ -30,11 +30,13 @@ export function SignupModal({
 
   const handleModalClose = () => onSignupClose();
   const onSubmit: SubmitHandler<RegData> = async (data) => {
-    await dispatch(signup(data))
-      .unwrap()
-      .catch(() => console.log('unwrap error happend'));
-    reset();
-    handleModalClose();
+    try {
+      await dispatch(signup(data)).unwrap();
+      reset();
+      handleModalClose();
+    } catch (error) {
+      () => console.log('unwrap error happend');
+    }
   };
 
   return (
