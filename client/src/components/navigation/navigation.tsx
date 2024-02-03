@@ -6,10 +6,14 @@ import { Box, Container } from '@mui/material';
 import { LoginModal } from './../login-modal/login-modal';
 import { SignupModal } from './../signup-modal/signup-moda';
 import { LoginBar } from '../login-bar/login-bar';
+import { LogoutBar } from '../logout-bar/logout-bar';
+import { useAppSelector } from '../../hooks/store';
+import { AuthStatus } from '../../const';
 
 export function Navigation(): JSX.Element {
-  const [ isLoginOpen, setIsLoginOpen ] = useState<boolean>(false);
-  const [ isSignupOpen, setIsSignupOpen ] = useState<boolean>(false);
+  const { authStatus } = useAppSelector((state) => state.authSlice);
+  const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
+  const [isSignupOpen, setIsSignupOpen] = useState<boolean>(false);
 
   const handleLoginOpen = () => {
     setIsLoginOpen(true);
@@ -30,25 +34,31 @@ export function Navigation(): JSX.Element {
   return (
     <>
       <AppBar position="static">
-          <Container>
-        <Toolbar>
+        <Container>
+          <Toolbar>
             <Typography variant="h6" component="h1" sx={{ flexGrow: 1 }}>
               My very cool auth app
             </Typography>
-            <Box sx={{
-              display: 'flex',
-              gap: 3
-            }}>
-              <LoginBar
-                onLoginClick={handleLoginOpen}
-                onSignupClick={handleSignupOpen}
-              />
+            <Box
+              sx={{
+                display: 'flex',
+                gap: 3,
+              }}
+            >
+              {authStatus === AuthStatus.Auth ? (
+                <LogoutBar />
+              ) : (
+                <LoginBar
+                  onLoginClick={handleLoginOpen}
+                  onSignupClick={handleSignupOpen}
+                />
+              )}
             </Box>
-        </Toolbar>
-          </Container>
+          </Toolbar>
+        </Container>
       </AppBar>
-      { isLoginOpen && <LoginModal onLoginClose={ handleLoginClose } /> }
-      { isSignupOpen && <SignupModal onSignupClose={ handleSignupClose } /> }
+      {isLoginOpen && <LoginModal onLoginClose={handleLoginClose} />}
+      {isSignupOpen && <SignupModal onSignupClose={handleSignupClose} />}
     </>
   );
 }
