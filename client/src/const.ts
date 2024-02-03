@@ -10,6 +10,7 @@ export const BASE_URL = 'http://localhost:5000';
 export enum ApiRoute {
   signup = '/auth/signup',
   Login = '/auth/login',
+  Logout = '/auth/logout',
 }
 
 export enum LoadingStatus {
