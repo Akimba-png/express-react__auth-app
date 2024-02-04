@@ -11,6 +11,7 @@ export enum ApiRoute {
   signup = '/auth/signup',
   Login = '/auth/login',
   Logout = '/auth/logout',
+  Refresh = '/auth/refresh',
 }
 
 export enum LoadingStatus {
