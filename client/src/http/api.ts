@@ -39,6 +39,7 @@ export const createApi = (onUnAuth: () => void) => {
         tokenService.setToken(response.data.accessToken);
         return api.request(initialRequest);
       } catch (error) {
+        console.log('error', error)
         onUnAuth();
         return;
       }

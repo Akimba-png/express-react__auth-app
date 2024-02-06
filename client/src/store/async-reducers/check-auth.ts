@@ -6,7 +6,7 @@ import { ActionReducerMapBuilder } from '@reduxjs/toolkit';
 import { AuthState } from '../slices/auth-slice';
 import { tokenService } from '../../services/token-service';
 
-const checkAuth = createAppAsyncThunk<User>(
+export const checkAuth = createAppAsyncThunk<User>(
   'auth/checkAuth',
   async (_, { extra, rejectWithValue }) => {
     try {
@@ -22,7 +22,7 @@ const checkAuth = createAppAsyncThunk<User>(
   }
 );
 
-export const checkAuthReducer = (
+export const createCheckAuthReducer = (
   builder: ActionReducerMapBuilder<AuthState>
 ) => {
   builder.addCase(checkAuth.pending, (state) => {

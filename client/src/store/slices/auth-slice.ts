@@ -5,6 +5,7 @@ import { createSignupReducer } from '../async-reducers/signup';
 import { createLoginReducer } from '../async-reducers/login';
 import { createLogoutReducer } from '../async-reducers/logout';
 import { tokenService } from '../../services/token-service';
+import { createCheckAuthReducer } from '../async-reducers/check-auth';
 
 export const DEFAULT_USER: User = {
   id: '',
@@ -40,6 +41,7 @@ export const authSlice = createSlice({
     createSignupReducer(builder);
     createLoginReducer(builder);
     createLogoutReducer(builder);
+    createCheckAuthReducer(builder);
   },
 });
 
