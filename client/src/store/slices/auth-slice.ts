@@ -4,6 +4,7 @@ import { AuthStatus, LoadingStatus } from '../../const';
 import { createSignupReducer } from '../async-reducers/signup';
 import { createLoginReducer } from '../async-reducers/login';
 import { createLogoutReducer } from '../async-reducers/logout';
+import { tokenService } from '../../services/token-service';
 
 export const DEFAULT_USER: User = {
   id: '',
@@ -29,10 +30,17 @@ const authState: AuthState = {
 export const authSlice = createSlice({
   name: 'authSlice',
   initialState: authState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.authStatus = AuthStatus.NotAuth;
+      tokenService.resetToken();
+    }
+  },
   extraReducers: (builder) => {
     createSignupReducer(builder);
     createLoginReducer(builder);
     createLogoutReducer(builder);
   },
 });
+
+export const { logout } = authSlice.actions;

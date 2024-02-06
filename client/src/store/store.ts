@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { authSlice } from './slices/auth-slice';
+import { authSlice, logout as clientLogout } from './slices/auth-slice';
 import { createApi } from '../http/api';
 
-const api = createApi();
+const api = createApi(() => store.dispatch(clientLogout()));
 
 export const store = configureStore({
   reducer: {
